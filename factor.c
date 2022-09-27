@@ -7,10 +7,11 @@
 #include <stdlib.h>
 
 int main(int argc, char *argv[]) {
-  //Read in the number to find factors of
+  //Read in the number
   int toCheck;
   toCheck = atoi(argv[1]);
   
+  //Loop through the possible factors starting at 2
   int i;
   for(i = 2; toCheck > 1; i++){
     while(toCheck % i == 0){
