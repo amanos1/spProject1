@@ -3,7 +3,7 @@
  * tries to get to a treasure while avoiding a monster.
  */
 
-//gcc -g -Wall -Wvla -fsanitize=address monster.c -o monster.exe
+//gcc -g -Wall -Wvla -fsanitize=address monster.c -o monster
 //on windows: gcc -g -Wall -Wvla monster.c -o monster.exe
 
 #include <stdio.h>
