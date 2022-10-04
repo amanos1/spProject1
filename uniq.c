@@ -13,7 +13,7 @@ typedef struct wordNode{
 	struct wordNode *next;
 } wordNode;
 
-//change code a bit
+
 char *readstrings(FILE* input, size_t size){
 	char *string;
 	int character;
@@ -41,13 +41,6 @@ int main(int argc, char** argv){
 	
 	char *temp;
 	
-	/*
-	while(!feof(stdin)){
-		temp = readstrings(stdin, 10);
-		printf("%s\n", temp);
-		free(temp);
-	}
-	*/
 	
 
 	wordNode *head = NULL;
@@ -60,32 +53,35 @@ int main(int argc, char** argv){
 	while(!(feof(stdin))){
 		char *tempWord = pointer->word;
 		char *tempWord2 = readstrings(stdin, 10);
-		//printf("%s %s\n", tempWord, tempWord2);
+
 		
 		if(tempWord == NULL || strcmp(tempWord,tempWord2) != 0){
-			//printf("%d %s", pointer->frequency, pointer->word);
 			
 			wordNode *after = malloc(sizeof(wordNode));
 			after->word = tempWord2;
 			after->frequency = 1;
 			after->next = NULL;
 			
-			//printf("%s %d\n", after->word, after->frequency);
+
 			pointer->next = after;
 			pointer = after; 
 		}
 		else if(strcmp(tempWord, tempWord2) == 0){
 			pointer->frequency +=1;
-		} 
+			free(tempWord2);
+		}
 	}
 	
 	pointer = head->next;
-	while(pointer != NULL){
-		//printf("here\n");
+	free(head);
+	while(pointer->next != NULL){
 		printf("%d %s\n", pointer->frequency, pointer->word);
+		free(pointer->word);
 		wordNode *temp = pointer;
 		pointer = pointer->next;
 		free(temp);
 	}
+	free(pointer->word);
+	free(pointer);
 	return 0;
 }		
