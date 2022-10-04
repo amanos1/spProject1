@@ -77,11 +77,33 @@ int abs(int a) {
 	return a;
 }
 
+int randIO() {
+	return rand() % 2;
+}
+
 void monsterFollows() {
 	int distX = monX - plrX;
 	int distY = monY - plrY;
 	char dir;
-	if(abs(distX) >= abs(distY)) {
+	if(abs(distX) == abs(distY)) {
+		if(randIO() == 0) {
+			if(distX < 0) {
+				dir = 'E';
+				monX++;
+			} else {
+				dir = 'W';
+				monX--;
+			}
+		} else {
+			if(distY < 0) {
+				dir = 'N';
+				monY++;
+			} else {
+				dir = 'S';
+				monY--;
+			}
+		}
+	} else if(abs(distX) > abs(distY)) {
 		if(distX == 0) return;
 		if(distX < 0) {
 			dir = 'E';

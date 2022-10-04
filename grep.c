@@ -16,11 +16,13 @@ int contains(char *one, char *two, int oneLen, int caseSens) {
     int j = 0;
     for(int i = 0; i <= oneLen; i++) {
         if(two[j] == '\0') return 0;
-        if(caseSens == 0) {
-            if(one[i] == two[j]) j++;
-        } else {
-            if(one[i] == two[j] || (one[i] - 32) == two[j] || one[i] == (two[j] - 32)) j++;
+        if(one[i] == two[j]) {
+            j++;
+            continue;
         }
+
+        if(caseSens == 1 && ((one[i] - 32) == two[j] || one[i] == (two[j] - 32))) j++;
+        else j = 0;
     }
     return 1;
 }
@@ -67,7 +69,7 @@ int main(int argc, char *argv[]) {
 
             if (len + 1 == buf) {
                 buf *= 2;
-                newWerd = realloc(werd, buf - 1);
+                newWerd = realloc(werd, buf);
 
                 if (!newWerd) {
                     printf("Cannot reallocate string.\n");
