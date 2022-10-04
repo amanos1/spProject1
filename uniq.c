@@ -2,74 +2,87 @@
  * reads from stdin and returns the same strings minus the 
  * consecutive duplicates. also print how many consecutive duplicates of each string there are.
  */
-int main(int argc, char *argv[]) {
-    char *werd = malloc(2);
-    char **collection = malloc(sieof(char *) * 2);
 
-    if (!werd) {
-        printf("Cannot allocate string.\n");
-        return 1;
-    }
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-    int c;
-    char *newWerd;
-    int end = 0;
-    size_t buf = 2;
+typedef struct wordNode{
+	char *word;
+	int frequency;
+	 
+	struct wordNode *next;
+} wordNode;
 
-    char **newCollection;
-    size_t listSize;
-    size_t buf2 = 2;
 
-    while(1) {
-        size_t len = 0;
-
-        while (1) {
-            if((c = getchar()) == EOF) {
-                end = 1;
-                break;
-            } else if(c == '\n') break;
-
-            if (len + 1 == buf) {
-                buf *= 2;
-                newWerd = realloc(werd, buf - 1);
-
-                if (!newWerd) {
-                    printf("Cannot reallocate string.\n");
-                    free(werd);
-                    return 1;
-                }
-
-            werd = newWerd;
-
-            }
-
-            werd[len++] = c;
-        }
-
-        if(end == 1) break;
-
-        werd[len] = '\0';
-
-            if (len + 1 == buf) {
-                buf *= 2;
-                newWerd = realloc(werd, buf - 1);
-
-                if (!newWerd) {
-                    printf("Cannot reallocate string.\n");
-                    free(werd);
-                    return 1;
-                }
-
-            werd = newWerd;
-
-            }
-
-        if(contains(werd, matchThis, len, cap) == 0) {
-            printf("%s\n", werd);
-        }
-    }
-
-    free(werd);
-
-    return 0;
+char *readstrings(FILE* input, size_t size){
+	char *string;
+	int character;
+	size_t length = 0;
+	
+	string = realloc(NULL, sizeof(*string)*size);
+	if(!string){
+		return string;
+	}
+	while(EOF != (character=fgetc(input)) && character != '\n'){
+		string[length++] = character;
+		if(length == size){
+			string = realloc(string, sizeof(*string)*(size+=8));
+			if(!string){
+				return string;
+			}
+		}
+	}
+	string[length++] = '\0';
+	 
+	return realloc(string, sizeof(*string)*length);
 }
+
+int main(int argc, char** argv){
+	
+	char *temp;
+	
+	
+
+	wordNode *head = NULL;
+	head = malloc(sizeof(wordNode));
+	head->word = NULL;
+	head->frequency = 0;
+	
+	wordNode *pointer = head;
+
+	while(!(feof(stdin))){
+		char *tempWord = pointer->word;
+		char *tempWord2 = readstrings(stdin, 10);
+
+		
+		if(tempWord == NULL || strcmp(tempWord,tempWord2) != 0){
+			
+			wordNode *after = malloc(sizeof(wordNode));
+			after->word = tempWord2;
+			after->frequency = 1;
+			after->next = NULL;
+			
+
+			pointer->next = after;
+			pointer = after; 
+		}
+		else if(strcmp(tempWord, tempWord2) == 0){
+			pointer->frequency +=1;
+			free(tempWord2);
+		}
+	}
+	
+	pointer = head->next;
+	free(head);
+	while(pointer->next != NULL){
+		printf("%d %s\n", pointer->frequency, pointer->word);
+		free(pointer->word);
+		wordNode *temp = pointer;
+		pointer = pointer->next;
+		free(temp);
+	}
+	free(pointer->word);
+	free(pointer);
+	return 0;
+}		
