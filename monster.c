@@ -74,36 +74,35 @@ void monsterFollows() {
 		if(randIO() == 0) {
 			if(distX < 0) {
 				dir = 'E';
-				monX++;
+				if(goalX != monX || goalX != monX + 1) monX++;
 			} else {
 				dir = 'W';
-				monX--;
+				if(goalX != monX || goalX != monX - 1) monX--;
 			}
 		} else {
 			if(distY < 0) {
 				dir = 'N';
-				monY++;
+				if(goalY != monY || goalY != monY + 1) monY++;
 			} else {
 				dir = 'S';
-				monY--;
+				if(goalY != monY || goalY != monY - 1) monY--;
 			}
 		}
 	} else if(abs(distX) > abs(distY)) {
-		if(distX == 0) return;
 		if(distX < 0) {
 			dir = 'E';
-			monX++;
+			if(goalX != monX || goalX != monX + 1) monX++;
 		} else {
 			dir = 'W';
-			monX--;
+			if(goalX != monX || goalX != monX - 1) monX--;
 		}
 	} else {
 		if(distY < 0) {
 			dir = 'N';
-			monY++;
+			if(goalY != monY || goalY != monY + 1) monY++;
 		} else {
 			dir = 'S';
-			monY--;
+			if(goalY != monY || goalY != monY - 1) monY--;
 		}
 	}
 	printf("monster moves %c\n", dir);
@@ -135,6 +134,7 @@ void gameLoop() {
 			kachiga = movePlayer(command);
 		}
 		if(didWin()) break;
+		if(didLose()) break;
 		monsterFollows();
 		if(didLose()) break;
 	}
