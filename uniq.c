@@ -39,10 +39,7 @@ char *readstrings(FILE* input, size_t size){
 }
 
 int main(int argc, char** argv){
-	
-	char *temp;
-	
-	
+	//char *temp;
 
 	wordNode *head = NULL;
 	head = malloc(sizeof(wordNode));

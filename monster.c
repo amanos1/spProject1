@@ -39,36 +39,21 @@ void printBoard() {
 }
 
 int movePlayer(char dir) {
-	int ugh = 0;
-	switch(dir) {
-		case 'N':
-			if(plrY < boardY-1) {
-				plrY++;
-				ugh = 1;
-			}
-			break;
-		case 'W':
-			if(plrX > 0) {
-				plrX--;
-				ugh = 1;
-			}
-			break;
-		case 'E':
-			if(plrX < boardX-1) {
-				plrX++;
-				ugh = 1;
-			}
-			break;
-		case 'S':
-			if(plrY > 0) {
-				plrY--;
-				ugh = 1;
-			}
+	if(dir == 'N' && plrY < boardY - 1) {
+		plrY++;
+		return 1;
+	} else if(dir == 'W' && plrX > 0) {
+		plrX--;
+		return 1;
+	} else if(dir == 'E' && plrX < boardX - 1) {
+		plrX++;
+		return 1;
+	} else if(dir == 'S' && plrY > 0) {
+		plrY--;
+		return 1;
 	}
-	if(ugh == 0) {
-		printf("invalid move\n");
-	}
-	return ugh;
+	printf("invalid move\n");
+	return 0;
 }
 
 int abs(int a) {
@@ -144,11 +129,11 @@ void gameLoop() {
 	while(1) {
 		printBoard();
 		int kachiga = 0;
-		do {
+		while(kachiga == 0) {
 			char command;
-			scanf("%1s", &command);
+			scanf(" %c", &command);
 			kachiga = movePlayer(command);
-		} while(kachiga == 0);
+		}
 		if(didWin()) break;
 		monsterFollows();
 		if(didLose()) break;
@@ -157,7 +142,12 @@ void gameLoop() {
 
 int main(int argc, char *argv[]) {
 	if(argc != 9) {
-		printf("who invited this kid?");
+		printf("you need the right amount of inputs!!!");
+		return 1;
+	}
+
+	if(boardX < 0 || boardY < 0 || plrX < 0 || plrY < 0 || goalX < 0 || goalY < 0 || monX < 0 || monY < 0) {
+		printf("no negative numbers!");
 		return 1;
 	}
 
