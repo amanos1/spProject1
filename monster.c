@@ -146,10 +146,6 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 
-	if(boardX < 0 || boardY < 0 || plrX < 0 || plrY < 0 || goalX < 0 || goalY < 0 || monX < 0 || monY < 0) {
-		printf("no negative numbers!");
-		return 1;
-	}
 
 	boardX = atoi(argv[1]);
 	boardY = atoi(argv[2]);
@@ -159,7 +155,12 @@ int main(int argc, char *argv[]) {
 	goalY = atoi(argv[6]);
 	monX = atoi(argv[7]);
 	monY = atoi(argv[8]);
-
+	
+	if(boardX < 0 || boardY < 0 || plrX < 0 || plrY < 0 || goalX < 0 || goalY < 0 || monX < 0 || monY < 0) {
+		printf("no negative numbers!");
+		return 1;
+	}
+	
 	gameLoop();
 
 	return 0;
