@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <time.h>
 int boardX;
 int boardY;
 int plrX;
@@ -160,7 +160,7 @@ int main(int argc, char *argv[]) {
 		printf("no negative numbers!\n");
 		return 1;
 	}
-	
+	srand(time(NULL));
 	gameLoop();
 
 	return 0;
