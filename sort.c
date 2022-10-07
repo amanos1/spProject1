@@ -90,6 +90,7 @@ int main(int argc, char *argv[]){
 			/*for(k = 0; k < i-1; k++){
 				printf("%d\n", input[k]);
 			}*/
+			printf("\n");
 			qsort(input,i-1,sizeof(int),cmpfunc);
 		        for(k = 0; k < i-1; k++){
 			       printf("%d\n", input[k]);
