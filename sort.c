@@ -87,9 +87,9 @@ int main(int argc, char *argv[]){
 				i++;
 			}
 			int k;
-			for(k = 0; k < i-1; k++){
+			/*for(k = 0; k < i-1; k++){
 				printf("%d\n", input[k]);
-			}
+			}*/
 			qsort(input,i-1,sizeof(int),cmpfunc);
 		        for(k = 0; k < i-1; k++){
 			       printf("%d\n", input[k]);

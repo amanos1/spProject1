@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <time.h>
 int boardX;
 int boardY;
 int plrX;
@@ -142,14 +142,10 @@ void gameLoop() {
 
 int main(int argc, char *argv[]) {
 	if(argc != 9) {
-		printf("you need the right amount of inputs!!!");
+		printf("you need the right amount of inputs!!!\n");
 		return 1;
 	}
 
-	if(boardX < 0 || boardY < 0 || plrX < 0 || plrY < 0 || goalX < 0 || goalY < 0 || monX < 0 || monY < 0) {
-		printf("no negative numbers!");
-		return 1;
-	}
 
 	boardX = atoi(argv[1]);
 	boardY = atoi(argv[2]);
@@ -159,7 +155,12 @@ int main(int argc, char *argv[]) {
 	goalY = atoi(argv[6]);
 	monX = atoi(argv[7]);
 	monY = atoi(argv[8]);
-
+	
+	if(boardX < 0 || boardY < 0 || plrX < 0 || plrY < 0 || goalX < 0 || goalY < 0 || monX < 0 || monY < 0) {
+		printf("no negative numbers!\n");
+		return 1;
+	}
+	srand(time(NULL));
 	gameLoop();
 
 	return 0;
